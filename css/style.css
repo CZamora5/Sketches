@@ -168,14 +168,15 @@ section + section {
   content: "";
   position: absolute;
   left: -1rem;
-  bottom: -0.25rem;
-  /* width: 2rem; */
-  right: -1rem;
-  height: 0.25rem;
+  top: 0;
+  bottom: 0;
+  width: 0.5rem;
+  /* right: -1rem; */
+  /* height: 0.25rem; */
   background-color: rgb(var(--clr-accent));
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 350ms ease-in-out;
+  transition: transform 250ms ease-in-out;
 }
 
 .card:hover .card-title:before{
