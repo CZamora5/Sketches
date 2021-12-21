@@ -95,11 +95,12 @@ section + section {
   position: relative;
   width: 200px;
   height: 200px;
-  padding: 2rem;
   margin: 4rem auto;
 }
 
-.ilustration span {
+.ilustration::before,
+.ilustration::after,
+.ilustration > span {
   position: absolute;
   top: 0;
   left: 0;
@@ -109,17 +110,19 @@ section + section {
   animation: rotate 5s linear infinite;
 }
 
-.ilustration span:nth-child(1) {
+.ilustration::before {
+  content: "";
   border-radius: 69% 31% 42% 58% / 71% 65% 35% 29%;
   animation-direction: reverse;
 }
 
-.ilustration span:nth-child(2) {
+.ilustration > span {
   border-radius: 38% 62% 22% 78% / 22% 81% 19% 78% ;
   animation-direction: reverse;
 }
 
-.ilustration span:nth-child(3) {
+.ilustration::after {
+  content: "";
   border-radius: 75% 25% 57% 43% / 46% 24% 76% 54%;
   animation-duration: 10s;
 }
@@ -181,4 +184,23 @@ section + section {
 
 .none {
   display: none;
+}
+
+@media screen and (min-width: 768px) {
+  main {
+    display: flex;
+  }
+
+  main section {
+    flex: 1 1 100%;
+    margin-top: 0;
+  }
+
+  .info {
+    margin-right: 2rem;
+  }
+
+  .info h1 {
+    font-size: 2rem;
+  }
 }
