@@ -3,7 +3,7 @@ export class Polygon {
     this.vertices = vertices;
   }
 
-  get Area() {
+  get area() {
     let area = 0,
       n = this.vertices.length;
     for (let i = 0; i < n; i++) {
@@ -12,6 +12,7 @@ export class Polygon {
           this.vertices[(i + 1) % n].x * this.vertices[i].y) /
         2;
     }
+    return Math.abs(area);
   }
 
   addVertex(vertex) {
@@ -27,6 +28,33 @@ export class Polygon {
     centroid.divide(this.vertices.length);
 
     this.vertices.sort((vert1, vert2) => Vector.sub(vert2, centroid).dir - Vector.sub(vert1, centroid).dir);
+  }
+
+  isPointInside(vector) {
+    const A = [], B = [], C = [];
+
+    for (let i = 0; i < this.vertices.length; i++) {
+      p1 = this.vertices[i];
+      p2 = this.vertices[(i + 1) % this.vertices.length];
+      
+      let a = -(p2.y - p1.y);
+      let b = p2.x - p1.x;
+      let c = -(a * p1.x + b * p1.y);
+
+      A.push(a);
+      B.push(b);
+      C.push(c);
+    }
+
+    const D = [];
+    for (let i = 0; i < A.length; i++) {
+      let d = A[i] * vector.x + B[i] * vector.y + C[i];
+      D.push(d);
+    }
+
+    let t1 = D.every(d => d >= 0);
+    let t2 = D.every(d => d <= 0);
+    return t1 || t2;
   }
 }
 
@@ -49,6 +77,11 @@ export class Vector {
   divide(scalar) {
     this.x /= scalar;
     this.y /= scalar;
+  }
+
+  multiply(scalar) {
+    this.x *= scalar;
+    this.y *= scalar;
   }
 
   get dir() {
