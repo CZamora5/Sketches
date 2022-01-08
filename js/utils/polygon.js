@@ -31,29 +31,21 @@ export class Polygon {
   }
 
   isPointInside(vector) {
-    const A = [], B = [], C = [];
+    let t1 = true, t2 = true;
 
     for (let i = 0; i < this.vertices.length; i++) {
-      p1 = this.vertices[i];
-      p2 = this.vertices[(i + 1) % this.vertices.length];
+      const p1 = this.vertices[i];
+      const p2 = this.vertices[(i + 1) % this.vertices.length];
       
       let a = -(p2.y - p1.y);
       let b = p2.x - p1.x;
       let c = -(a * p1.x + b * p1.y);
+      let d = a * vector.x + b * vector.y + c;
 
-      A.push(a);
-      B.push(b);
-      C.push(c);
+      t1 &&= d >= 0;
+      t2 &&= d <= 0;
     }
 
-    const D = [];
-    for (let i = 0; i < A.length; i++) {
-      let d = A[i] * vector.x + B[i] * vector.y + C[i];
-      D.push(d);
-    }
-
-    let t1 = D.every(d => d >= 0);
-    let t2 = D.every(d => d <= 0);
     return t1 || t2;
   }
 }
