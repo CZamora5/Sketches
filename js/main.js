@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('theme', 'dark');
   }
 
+  if (localStorage.getItem('theme') === 'light') {
+    $toggler.classList.toggle('switch-active');
+  }
   setTheme();
 });
 
@@ -35,10 +38,12 @@ $switch.addEventListener('click', () => {
 });
 
 $cards.forEach($card => {
-  $card.addEventListener('click', () => {
+  const $titleContainer = $card.querySelector('.card-title-container');
+  $titleContainer.addEventListener('click', () => {
     const $cardContent = $card.querySelector('.card-content');
     if ($cardContent === undefined) return;
 
     $cardContent.classList.toggle('none');
+    $card.classList.toggle('card-active');
   });
 });
